@@ -10,6 +10,17 @@ function initEditor() {
     currentConfig.webhookUsername || currentConfig.title;
   webhookAvatarUrlInput.value = currentConfig.webhookAvatarUrl || "";
 
+  // URL изображения в embed (image)
+  const embedImageUrlInput = document.getElementById("embedImageUrl");
+  if (embedImageUrlInput) {
+    embedImageUrlInput.value = currentConfig.embedImageUrl || "";
+    embedImageUrlInput.addEventListener("input", (e) => {
+      currentConfig.embedImageUrl = e.target.value;
+      if (typeof updateConfigFromEditor === "function") updateConfigFromEditor();
+      if (typeof renderForm === "function") renderForm();
+    });
+  }
+
   if (sendAsPlainTextCheckbox) {
     sendAsPlainTextCheckbox.checked = currentConfig.sendAsPlainText || false;
   }
@@ -47,6 +58,7 @@ function initEditor() {
   webhookUrlInput.addEventListener("input", updateConfigFromEditor);
   webhookUsernameInput.addEventListener("input", updateConfigFromEditor);
   webhookAvatarUrlInput.addEventListener("input", updateConfigFromEditor);
+  // embedImageUrlInput handled above (listener sets currentConfig and updates)
 
   if (sendAsPlainTextCheckbox) {
     sendAsPlainTextCheckbox.addEventListener("change", updateConfigFromEditor);

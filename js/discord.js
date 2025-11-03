@@ -25,6 +25,11 @@ function createDiscordEmbed(formData) {
     },
   };
 
+  // Если задан URL изображения для embed — добавляем его (показывается внизу embed)
+  if (currentConfig && currentConfig.embedImageUrl) {
+    embed.image = { url: currentConfig.embedImageUrl };
+  }
+
   let questionIndex = 1;
   currentConfig.fields.forEach((field) => {
     // Пропускаем поля с кастомной отправкой
