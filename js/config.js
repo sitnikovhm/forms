@@ -16,15 +16,15 @@ function createEmptyConfig() {
       {
         id: generateId(),
         type: "text",
-        label: "Имя",
+        label: "Имя и фамилия",
         placeholder: "",
         required: true,
         icon: "user",
       },
       {
         id: generateId(),
-        type: "email",
-        label: "Email",
+        type: "text",
+        label: "Static",
         placeholder: "",
         required: true,
         icon: "envelope",
