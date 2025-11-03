@@ -1251,7 +1251,10 @@ textarea:focus {
     z-index: 1200;
     backdrop-filter: blur(6px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    white-space: nowrap; 
+    z-index: 9999;
 }
+
 
 /* Стили для компактных кнопок темы */
 .theme-btn--small {
