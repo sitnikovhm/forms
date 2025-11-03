@@ -47,10 +47,12 @@ function updateFavicon(organization) {
     // Устанавливаем favicon в зависимости от организации
     if (organization === "LSPD") {
       faviconPath = "images/favicon/lspd.ico";
-    } else if (organization === "LSSD") {
-      faviconPath = "images/favicon/lssd.ico";
+    } else if (organization === "LSCSD") {
+      faviconPath = "images/favicon/lscsd.ico";
     } else if (organization === "WN") {
       faviconPath = "images/favicon/wn.ico";
+    } else if (organization === "ARM") {
+      faviconPath = "images/favicon/arm.ico";
     }
 
     faviconLink.href = faviconPath;
