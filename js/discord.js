@@ -8,7 +8,7 @@ function createDiscordEmbed(formData) {
     Высокий: 0xef4444,
   };
 
-  let embedColor = 0x6366f1;
+  let embedColor = 0xF16663;
   if (formData.priority && priorityColors[formData.priority]) {
     embedColor = priorityColors[formData.priority];
   }
