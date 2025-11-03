@@ -44,7 +44,7 @@ function createDiscordEmbed(formData) {
     const value = formData[field.id];
     if (value !== undefined && value !== '') {
       let displayValue = value;
-      let fieldName = `${questionIndex}) ${field.label}:`;
+      let fieldName = `${field.label}:`;
 
       if (field.type === 'checkbox') {
         displayValue = value === 'on' ? '✅ Да' : '❌ Нет';
@@ -57,7 +57,7 @@ function createDiscordEmbed(formData) {
       questionIndex++;
       embed.fields.push({
         name: fieldName,
-        value: displayValue,
+        value:"```yaml\n" + displayValue + "\n```",
         inline: false,
       });
     }
