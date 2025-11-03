@@ -1,0 +1,2238 @@
+/* CSS Variables для удобного управления цветами и размерами */
+/* Светлая тема (по умолчанию) */
+:root {
+  --primary-color: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #a5b4fc;
+  --secondary-color: #f43f5e;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-dark: #111827;
+  --border-color: #e5e7eb;
+  --border-radius: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition-fast: all 0.15s ease;
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+  --primary-color: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --primary-light: #c4b5fd;
+  --secondary-color: #f43f5e;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-light: #9ca3af;
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --bg-dark: #0f172a;
+  --border-color: #374151;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4),
+    0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset и базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #e0e7ff 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Тёмная тема для body */
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #1e293b 100%);
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.container.editor-mode {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 2rem;
+}
+
+@media (min-width: 1025px) {
+  .container.editor-mode {
+    justify-content: flex-start;
+    padding-top: 2rem;
+  }
+}
+
+/* Фоновая декорация */
+.background-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.decoration-1,
+.decoration-2,
+.decoration-3 {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    var(--primary-light),
+    var(--primary-color)
+  );
+  opacity: 0.1;
+}
+
+/* Тёмная тема для декоративных элементов */
+[data-theme="dark"] .decoration-1,
+[data-theme="dark"] .decoration-2,
+[data-theme="dark"] .decoration-3 {
+  opacity: 0.05;
+}
+
+.decoration-1 {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  right: -150px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.decoration-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -100px;
+  left: -100px;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.decoration-3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: 10%;
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Основная форма */
+.form-wrapper {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-xl);
+  padding: 3rem;
+  padding-top: 1rem;
+  width: 100%;
+  max-width: 680px;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-wrapper.preview {
+  pointer-events: auto;
+  opacity: 0.9;
+  transition: var(--transition-normal);
+}
+
+/* Отключаем анимации в превью */
+.form-wrapper.preview .form-group,
+.form-wrapper.preview .submit-btn {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.form-wrapper.preview .form-menu {
+  display: none;
+}
+
+.form-wrapper.preview input,
+.form-wrapper.preview select,
+.form-wrapper.preview textarea {
+  cursor: not-allowed;
+  background: var(--bg-secondary);
+  pointer-events: none;
+}
+
+.form-wrapper.preview button.submit-btn {
+  cursor: not-allowed;
+  background: var(--text-secondary) !important;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.form-wrapper.preview label,
+.form-wrapper.preview .radio-label,
+.form-wrapper.preview .checkbox-label {
+  pointer-events: none;
+}
+
+.form-wrapper.preview::after {
+  content: "Превью";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 10;
+}
+
+.form-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+}
+
+/* Логотип организации */
+.organization-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.organization-logo img {
+  max-width: 80%;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: var(--transition-normal);
+}
+
+.organization-logo img:hover {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+  transform: scale(1.02);
+}
+
+/* Vinewood логотип */
+.vinewood-logo {
+  margin: 0 auto 1.5rem auto;
+  width: fit-content;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.3);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: var(--transition-normal);
+  opacity: 0.85;
+  padding: 0 10px;
+  margin-top: -10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.vinewood-logo:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* Заголовок */
+.header {
+  margin-bottom: 2.5rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Группы формы */
+.form-group {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.form-group label i {
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+  width: 16px;
+}
+
+/* Поля ввода */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem 0;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text-primary);
+  transition: var(--transition-normal);
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-bottom-color: var(--primary-color);
+}
+
+.input-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  transform: scaleX(0);
+  transition: var(--transition-normal);
+}
+
+input:focus + .input-line,
+select:focus + .input-line,
+textarea:focus + .input-line {
+  transform: scaleX(1);
+}
+
+/* Select стилизация */
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  padding-right: 2rem;
+}
+
+/* Select options для тёмной темы */
+[data-theme="dark"] select {
+  background-color: var(--bg-primary);
+  color-scheme: dark;
+}
+
+[data-theme="dark"] select option {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Radio buttons */
+.radio-group {
+  margin-top: 0.5rem;
+}
+
+.radio-label {
+  display: flex !important;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 400;
+  position: relative;
+}
+
+.radio-label input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  position: relative;
+  transition: var(--transition-normal);
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+}
+
+.radio-custom::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  transition: var(--transition-normal);
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  display: block;
+  min-width: 20px;
+  min-height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  position: relative;
+  transition: var(--transition-normal);
+  background: var(--bg-primary);
+  flex-shrink: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+}
+
+.checkbox-custom::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  transition: var(--transition-normal);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Кнопка отправки */
+.submit-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: var(--transition-slow);
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-text {
+  z-index: 1;
+  position: relative;
+}
+
+/* Сообщения ответа */
+.response-message {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--transition-normal);
+}
+
+.response-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.response-message.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.response-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error-color);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Анимации загрузки */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive дизайн */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .form-wrapper {
+    padding: 2rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Анимации появления элементов */
+.form-group {
+  animation: slideInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.form-group:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.form-group:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.form-group:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.form-group:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.form-group:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.form-group:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.submit-btn {
+  animation: slideInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation-delay: 0.7s;
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus стили для accessibility */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
+}
+
+/* Hover эффекты */
+.form-group:hover .input-line {
+  transform: scaleX(0.5);
+}
+
+/* === СТИЛИ КНОПКИ РЕДАКТИРОВАНИЯ === */
+
+.header-top {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-menu {
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.edit-form-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  font-size: 1.1rem;
+}
+
+.edit-form-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.edit-form-btn:active {
+  transform: scale(0.95);
+  background: var(--border-color);
+}
+
+.form-dropdown {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  background: var(--bg-primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color);
+  min-width: 240px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.form-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  text-align: left;
+  position: relative;
+}
+
+.dropdown-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary-color);
+  transform: scaleY(0);
+  transition: var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(99, 102, 241, 0.08) 0%,
+    transparent 100%
+  );
+  color: var(--primary-color);
+}
+
+.dropdown-item:hover::before {
+  transform: scaleY(1);
+}
+
+.dropdown-item:active {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.dropdown-item i {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+/* === СТИЛИ ПАНЕЛИ РЕДАКТОРА === */
+
+.editor-panel {
+  background: var(--bg-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: var(--transition-normal);
+  width: 100%;
+  max-width: 100vw;
+  display: none;
+}
+
+.editor-panel.show {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.editor-header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  padding: 1.5rem;
+}
+
+.editor-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.editor-header h2 i {
+  margin-right: 0.5rem;
+}
+
+.editor-content {
+  padding: 2rem;
+}
+
+.editor-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.editor-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.editor-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.setting-group {
+  margin-bottom: 1rem;
+}
+
+.setting-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.setting-group input:not([type="checkbox"]),
+.setting-group textarea,
+.setting-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+.checkbox-setting {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: var(--transition-fast);
+  margin: 0;
+}
+
+.checkbox-setting:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.checkbox-setting input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: var(--primary-color);
+}
+
+.checkbox-setting span {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  user-select: none;
+}
+
+.setting-group input:focus,
+.setting-group textarea:focus,
+.setting-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Стили для списка полей */
+.fields-list {
+  margin-bottom: 1rem;
+}
+
+.field-item {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin: -0.25rem -0.25rem 0.5rem -0.25rem;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+}
+
+.field-header:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.field-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.field-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.field-required-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+}
+
+.field-required-inline:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.field-required-inline input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: var(--primary-color);
+}
+
+.field-required-inline span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  user-select: none;
+}
+
+.field-actions {
+  display: flex;
+  gap: 0.5rem;
+  cursor: default;
+}
+
+.field-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+}
+
+.field-action-btn:hover {
+  color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.field-action-btn.move-up:hover {
+  color: var(--success-color);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.field-action-btn.move-down:hover {
+  color: var(--warning-color);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.field-action-btn.clone:hover {
+  color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.field-action-btn.delete:hover {
+  color: var(--error-color);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.field-config {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field-config-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-config-item label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.field-config-item input[type="text"],
+.field-config-item input[type="url"],
+.field-config-item select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.field-config-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.add-field-btn {
+  background: linear-gradient(135deg, var(--success-color), #059669);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  width: 100%;
+}
+
+.add-field-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Группа кнопок для URL */
+.url-buttons-group {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.generate-url-btn,
+.shorten-url-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.shorten-url-btn {
+  background: linear-gradient(
+    135deg,
+    var(--success-color),
+    #059669
+  );
+}
+
+.generate-url-btn:hover,
+.shorten-url-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.generate-url-btn:disabled,
+.shorten-url-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.generate-url-btn.copied,
+.shorten-url-btn.copied {
+  background: linear-gradient(135deg, var(--success-color), #059669);
+}
+
+.generate-url-btn i,
+.shorten-url-btn i {
+  font-size: 1rem;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 640px) {
+  .url-buttons-group {
+    flex-direction: column;
+  }
+  
+  .generate-url-btn,
+  .shorten-url-btn {
+    width: 100%;
+  }
+}
+
+.share-url {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.share-url input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-secondary);
+}
+
+.copy-btn {
+  background: var(--text-secondary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.copy-btn:hover {
+  background: var(--text-primary);
+}
+
+.copy-btn.copied {
+  background: var(--success-color);
+}
+
+/* === СТИЛИ ПЕРЕКЛЮЧАТЕЛЯ ТЕМ === */
+
+.theme-switcher {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.theme-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.theme-btn:hover {
+  border-color: var(--primary-color);
+  background: rgb(99 102 241 / 54%);
+}
+
+.theme-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.theme-btn.active:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+/* Компактная плавающая панель выбора темы */
+.theme-toggle-panel {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0,0,0,0.06);
+    padding: 4px;
+    border-radius: 10px;
+    align-items: center;
+    z-index: 1200;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Стили для компактных кнопок темы */
+.theme-btn--small {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Подстройки для тёмной темы (чтобы кнопки были видимы на светлом/тёмном фоне) */
+[data-theme="dark"] .theme-toggle-panel {
+    background: rgba(255,255,255,0.04);
+}
+
+/* Активное состояние для компактных кнопок */
+.theme-btn--small.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Превью на десктопе - фиксированное справа вверху */
+@media (min-width: 1200px) {
+  /* По умолчанию — центрированный блок превью (для случаев без открытой панели редактора) */
+  .form-wrapper.preview {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    transform-origin: center;
+    max-width: 680px;        /* совпадает с .form-wrapper */
+    margin: 2rem auto;       /* центрируем по горизонтали и даём отступ сверху/снизу */
+    max-height: none;
+    overflow: visible;
+    z-index: 2;
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* Если панель редактора открыта — сдвигаем превью фиксированно вправо */
+  .editor-panel.show {
+    display: block;
+    width: calc(100% - 420px);           /* оставляем место для фиксированного превью (~380px + отступы) */
+    max-width: calc(100vw - 420px);
+  }
+
+  .editor-panel.show ~ .form-wrapper.preview {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    max-width: 380px;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    transform: scale(0.95);
+    transform-origin: top right;
+    z-index: 999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Кастомный скроллбар для фиксированного превью */
+  .editor-panel.show ~ .form-wrapper.preview::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .editor-panel.show ~ .form-wrapper.preview::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+
+  .editor-panel.show ~ .form-wrapper.preview::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+    opacity: 0.6;
+  }
+
+  .editor-panel.show ~ .form-wrapper.preview::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+  }
+
+  /* Подстройка панели редактора при открытом превью */
+  .editor-panel {
+    /* оставляем возможность занимать ширину; конкретная ширина задаётся выше для .editor-panel.show */
+    max-width: 100%;
+  }
+}
+
+/* Welcome Screen */
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  min-height: 500px;
+}
+
+.welcome-icon {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.welcome-icon i {
+  font-size: 3rem;
+  color: white;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+  }
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.welcome-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.welcome-features {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.welcome-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  min-width: 150px;
+  transition: var(--transition-normal);
+}
+
+.welcome-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-feature i {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.welcome-feature span {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.create-form-btn {
+  padding: 1.25rem 3rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition-base);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+}
+
+.create-form-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+}
+
+.create-form-btn:active {
+  transform: translateY(0);
+}
+
+.create-form-btn i {
+  font-size: 1.25rem;
+}
+
+.welcome-info {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  max-width: 600px;
+}
+
+.welcome-info p {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Welcome Screen адаптивность */
+@media (max-width: 768px) {
+  .welcome-screen {
+    padding: 2rem 1rem;
+  }
+
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+
+  .welcome-features {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .welcome-feature {
+    min-width: 100%;
+  }
+
+  .create-form-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* === СТИЛИ ДЛЯ ВЫЧИСЛЯЕМЫХ ПОЛЕЙ === */
+
+/* Редактор формул */
+.formula-editor {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.field-formula-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: "Courier New", monospace;
+  background: var(--bg-secondary);
+}
+
+.field-formula-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.add-field-variable-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-field-variable-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.add-field-variable-btn i {
+  font-size: 0.9rem;
+}
+
+.formula-hint {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Вычисляемое поле в форме */
+.computed-field {
+  background: var(--bg-secondary) !important;
+  cursor: default !important;
+  color: var(--text-secondary) !important;
+  font-style: italic;
+}
+
+.computed-field:focus {
+  border-bottom-color: var(--border-color) !important;
+  outline: none !important;
+}
+
+.computed-field textarea {
+  background: var(--bg-secondary) !important;
+  cursor: default !important;
+  color: var(--text-secondary) !important;
+  font-style: italic;
+  resize: none;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  padding: 8px 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+}
+
+/* Попап для выбора поля */
+.field-variable-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popup-content {
+  background: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-xl);
+  min-width: 400px;
+  max-width: 90%;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.popup-content label {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.popup-select-container {
+  margin-bottom: 1rem;
+}
+
+.temp-field-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.temp-field-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Substring опции */
+.substring-options {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.substring-hint {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.substring-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.substring-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.substring-input-group label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.substring-input-group input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.substring-input-group input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.popup-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.insert-btn {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+}
+
+.insert-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.cancel-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.cancel-btn:hover {
+  background: var(--border-color);
+}
+
+/* Адаптивность попапа */
+@media (max-width: 640px) {
+  .popup-content {
+    min-width: auto;
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .popup-buttons {
+    flex-direction: column;
+  }
+
+  .popup-btn {
+    width: 100%;
+  }
+
+  .substring-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === СТИЛИ ДЛЯ УСЛОВНОЙ ВИДИМОСТИ === */
+
+.field-conditional-container {
+  padding: 0;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.section-header-with-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.section-header-with-toggle h3 {
+  margin: 0;
+  flex: 1;
+}
+
+.advanced-settings-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.advanced-settings-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+.advanced-settings-toggle .toggle-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.advanced-settings-toggle:hover .toggle-text {
+  color: var(--primary-color);
+}
+
+.conditional-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  transition: var(--transition-fast);
+  user-select: none;
+}
+
+.conditional-section-header:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.conditional-section-header span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.conditional-toggle-icon {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.conditional-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.conditional-config {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.conditional-hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.conditional-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.conditional-row span {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.conditional-field-select {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.conditional-field-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.conditional-value-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+
+.conditional-value-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Стили для множественного выбора условий */
+.conditional-value-container {
+  flex: 1;
+}
+
+.conditional-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.conditional-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.conditional-checkbox-label:hover {
+  background: var(--bg-secondary);
+}
+
+.conditional-checkbox-label input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+}
+
+/* Скрытые условные поля в форме */
+.conditional-field {
+  transition: all 0.3s ease;
+}
+
+/* Адаптивность условной видимости */
+@media (max-width: 640px) {
+  .conditional-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .conditional-row span {
+    text-align: center;
+  }
+}
+
+/* === СТИЛИ ДЛЯ КАСТОМНОЙ ОТПРАВКИ === */
+
+.field-custom-webhook-container {
+  padding: 0;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.custom-webhook-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  transition: var(--transition-fast);
+  user-select: none;
+}
+
+.custom-webhook-section-header:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.custom-webhook-section-header span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.custom-webhook-toggle-icon {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.custom-webhook-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.custom-webhook-config {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.custom-webhook-hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.custom-webhook-url-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+  font-family: "Courier New", monospace;
+}
+
+.custom-webhook-url-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.custom-webhook-split-lines {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: var(--transition-fast);
+}
+
+.custom-webhook-split-lines:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.custom-webhook-split-lines input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: var(--primary-color);
+}
+
+.custom-webhook-split-lines span {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* === СТИЛИ ДЛЯ УСЛОВНЫХ СООБЩЕНИЙ === */
+
+.section-hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: -0.5rem 0 1rem 0;
+  font-style: italic;
+}
+
+.conditional-messages-list {
+  margin-bottom: 1rem;
+}
+
+.conditional-message-item {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.condmsg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.condmsg-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.condmsg-config {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.condmsg-condition {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.condmsg-condition > label {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  min-width: fit-content;
+}
+
+.condmsg-condition > span {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.condmsg-field-select {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.condmsg-field-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.condmsg-value-container {
+  flex: 1;
+  min-width: 150px;
+}
+
+.condmsg-value-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+
+.condmsg-value-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.condmsg-message-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.condmsg-message-input > label {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.condmsg-message-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+  resize: vertical;
+  font-family: inherit;
+}
+
+.condmsg-message-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Адаптивность условных сообщений */
+@media (max-width: 768px) {
+  .condmsg-condition {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .condmsg-condition > span {
+    text-align: center;
+  }
+
+  .condmsg-field-select,
+  .condmsg-value-container {
+    min-width: 100%;
+  }
+}
