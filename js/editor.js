@@ -102,6 +102,8 @@ function initEditor() {
     addFieldToEditor(newField);
     updateConfigFromEditor();
     renderForm();
+    // если добавили поле — применяем стили для mention полей в превью
+    applyMentionInputStyling();
   });
 
   if (!currentConfig.conditionalMessages) {
@@ -126,6 +128,9 @@ function initEditor() {
 
   generateUrlBtn.addEventListener("click", generateAndCopyShareUrl);
   shortenUrlBtn.addEventListener("click", generateAndCopyShortUrl);
+
+  // Применяем стиль к полям типа "mention" в превью (если есть)
+  applyMentionInputStyling();
 }
 
 // Функция для добавления поля в редактор
@@ -184,6 +189,9 @@ function addFieldToEditor(field) {
           <option value="checkbox" ${
             field.type === "checkbox" ? "selected" : ""
           }>Чекбокс</option>
+          <option value="mention" ${
+            field.type === "mention" ? "selected" : ""
+          }>Упоминание пользователя (Discord ID)</option>
           <option value="computed" ${
             field.type === "computed" ? "selected" : ""
           }>Вычисляемое поле</option>
@@ -846,6 +854,10 @@ function rebuildFieldsList() {
   currentConfig.fields.forEach((field) => {
     addFieldToEditor(field);
   });
+
+  // После перестроения полей обновляем превью/стили упоминаний
+  if (typeof renderForm === "function") renderForm();
+  applyMentionInputStyling();
 }
 
 // Функция для обновления селектов полей в условиях (когда меняется название или тип поля)
@@ -1078,5 +1090,28 @@ function updateAdvancedSettingsVisibility(showAdvanced) {
 
   customWebhookContainers.forEach((container) => {
     container.style.display = displayValue;
+  });
+}
+
+// Добавляем функцию, которая находит в форме inputs соответствующие полям типа "mention"
+// и выставляет им класс и удобный placeholder, чтобы они выглядели как остальные поля.
+function applyMentionInputStyling() {
+  const form = document.getElementById("contactForm");
+  if (!form || !currentConfig || !Array.isArray(currentConfig.fields)) return;
+
+  currentConfig.fields.forEach((f) => {
+    if (f.type === "mention") {
+      // По name/id поля ищем input в форме
+      const input = form.querySelector(`[name="${f.id}"], #${f.id}`);
+      if (input) {
+        input.classList.add("mention-input");
+        // Установим плейсхолдер в читабельный вид
+        if (!input.placeholder || input.placeholder === "") {
+          input.placeholder = f.placeholder || "";
+        }
+        // Добавим подсказку (атрибут title)
+        input.title = input.title || "Введите Discord ID или упоминание вида <@1350080637616390185>";
+      }
+    }
   });
 }

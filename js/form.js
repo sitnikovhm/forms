@@ -296,6 +296,7 @@ function renderForm() {
 
   initComputedFields();
   initConditionalFields();
+  applyMentionInputStyling();
 }
 
 // Функция валидации формы
@@ -405,6 +406,28 @@ function initFormHandlers() {
       showMessage("Произошла неожиданная ошибка. Попробуйте еще раз.", "error");
     } finally {
       setLoading(false);
+    }
+  });
+}
+
+// Добавить эту функцию в верхнюю часть form.js (рядом с другими утилитами)
+function applyMentionInputStyling() {
+  // Если currentConfig отсутствует — ничего не делаем
+  if (!window.currentConfig || !Array.isArray(window.currentConfig.fields)) return;
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+
+  window.currentConfig.fields.forEach((f) => {
+    if (f.type === "mention") {
+      // ищем input по id или name
+      const input = form.querySelector(`[name="${f.id}"], #${f.id}`);
+      if (input) {
+        input.classList.add("mention-input");
+        if (!input.placeholder || input.placeholder === "") {
+          input.placeholder = f.placeholder || "";
+        }
+        input.title = input.title || "Введите Discord ID или упоминание вида <@1350080637616390185>";
+      }
     }
   });
 }

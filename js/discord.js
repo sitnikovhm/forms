@@ -133,37 +133,82 @@ function getConditionalMessage(formData) {
   return matchedMessages.length > 0 ? matchedMessages.join('\n') : null;
 }
 
-// Функция для отправки данных в Discord
+// helper: извлечь ID ролей из текста вида <@&123456789012345678>
+function extractRoleIdsFromText(text) {
+  const ids = [];
+  if (!text) return ids;
+  const re = /<@&(\d{17,20})>/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    ids.push(m[1]);
+  }
+  return Array.from(new Set(ids));
+}
+
+// helper: извлечь ID пользователей из строки (может быть просто число или упоминание <@123...>)
+function extractUserIdFromValue(val) {
+  if (!val) return null;
+  const s = String(val).trim();
+  const mMention = s.match(/<@!?(\d{17,20})>/);
+  if (mMention) return mMention[1];
+  const mDigits = s.match(/(\d{17,20})/);
+  if (mDigits) return mDigits[1];
+  return null;
+}
+
+// Функция для отправки данных в Discord (обновлённая: поддержка упоминаний пользователей из полей типа "mention")
 async function sendToDiscord(formData) {
   if (!currentConfig.webhookUrl) {
     return { success: false, message: 'Webhook URL не настроен' };
   }
 
+  // Собираем user IDs из полей типа "mention"
+  const userIds = [];
+  (currentConfig.fields || []).forEach((f) => {
+    if (f.type === 'mention') {
+      const val = formData[f.id];
+      const uid = extractUserIdFromValue(val);
+      if (uid) userIds.push(uid);
+    }
+  });
+
+  // Уникальные
+  const uniqueUserIds = Array.from(new Set(userIds));
+
+  // Роли — из customMessage (если там есть <@&ID>)
   const customMessage = getConditionalMessage(formData);
+  const roleIds = extractRoleIdsFromText(customMessage || "");
+
+  // Формируем content: сохраняем customMessage (может содержать role mentions), добавляем упоминания пользователей
+  const userMentionsString = uniqueUserIds.length ? uniqueUserIds.map(id => `<@${id}>`).join(' ') : "";
+  const contentText = `${customMessage || ""}${userMentionsString ? (customMessage ? " " + userMentionsString : userMentionsString) : ""}`.trim();
+
+  // allowed_mentions
+  const allowed_mentions = { parse: [] };
+  if (roleIds.length) allowed_mentions.roles = roleIds;
+  if (uniqueUserIds.length) allowed_mentions.users = uniqueUserIds;
+
   let payload;
 
   if (currentConfig.sendAsPlainText) {
     // Отправка как текстовое сообщение
     const plainTextContent = createPlainTextMessage(formData);
-    const finalContent = customMessage
-      ? `${customMessage}\n\n${plainTextContent}`
-      : plainTextContent;
-
+    const finalContent = contentText ? `${contentText}\n\n${plainTextContent}` : plainTextContent;
     payload = {
       content: finalContent,
       username: currentConfig.webhookUsername || currentConfig.title,
-      avatar_url:
-        currentConfig.webhookAvatarUrl || 'https://pngimg.com/uploads/discord/discord_PNG3.png',
+      avatar_url: currentConfig.webhookAvatarUrl || 'https://pngimg.com/uploads/discord/discord_PNG3.png',
+      allowed_mentions,
     };
   } else {
     // Отправка как embed
     const embed = createDiscordEmbed(formData);
     payload = {
-      content: customMessage,
+      content: contentText || "",
       embeds: [embed],
       username: currentConfig.webhookUsername || currentConfig.title,
-      avatar_url:
-        currentConfig.webhookAvatarUrl || 'https://pngimg.com/uploads/discord/discord_PNG3.png',
+      avatar_url: currentConfig.webhookAvatarUrl || 'https://pngimg.com/uploads/discord/discord_PNG3.png',
+      allowed_mentions,
     };
   }
 

@@ -2223,19 +2223,19 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-/* Адаптивность условных сообщений */
-@media (max-width: 768px) {
-  .condmsg-condition {
-    flex-direction: column;
-    align-items: stretch;
-  }
+/* Стиль для полей упоминаний (Discord ID) — одинаков с обычными инпутами формы */
+.mention-input {
+  width: 100%;
+  padding: 0.75rem 0;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text-primary);
+  transition: var(--transition-normal);
+  outline: none;
+}
 
-  .condmsg-condition > span {
-    text-align: center;
-  }
-
-  .condmsg-field-select,
-  .condmsg-value-container {
-    min-width: 100%;
-  }
+.mention-input:focus {
+  border-bottom-color: var(--primary-color);
 }
